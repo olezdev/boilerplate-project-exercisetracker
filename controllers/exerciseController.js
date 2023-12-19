@@ -41,6 +41,48 @@ const exerciseController = {
         error: 'Error adding exercise'
       });
     }
+  },
+
+  getUserLogs: async (req, res) => {
+    try {
+      const { _id } = req.params;
+
+      const user = await User.findById(_id);
+
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' })
+      }
+
+      const { from, to, limit } = req.query;
+
+      let logs = user.log;
+
+      // Filter by dates
+      if (from && to) {
+        logs = logs.filter((exercise) =>
+          exercise.date >= new Date(from) &&
+          exercise.date <= new Date(to));
+      }
+
+      if (limit) {
+        logs = logs.slice(0, parseInt(limit));
+      }
+
+      const validateLog = logs.map((exercise) => ({
+        description: exercise.description,
+        duration: exercise.duration,
+        date: exercise.date.toDateString()
+      }));
+
+      res.status(200).json({
+        username: user.username,
+        count: user.count,
+        log: validateLog
+      })
+
+    } catch (error) {
+      res.status(500).json({ error: 'Error getting user exercise log' });
+    }
   }
 }
 

@@ -3,5 +3,6 @@ const router = express.Router();
 const exerciseController = require('../controllers/exerciseController');
 
 router.post('/:_id/exercises', exerciseController.addExercise);
+router.get('/:_id/logs', exerciseController.getUserLogs);
 
 module.exports = router;
