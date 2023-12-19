@@ -4,16 +4,16 @@ const Exercise = require('../models/Exercise');
 const exerciseController = {
   addExercise: async (req, res) => {
     try {
-      const { description, duration, date } = req.body;
       const { _id } = req.params;
-
-      let exerciseDate = date ? new Date(date) : new Date();
-
       const user = await User.findById(_id);
 
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
+
+      const { description, duration, date } = req.body;
+
+      let exerciseDate = date ? new Date(date) : new Date();
 
       const newExercise = new Exercise({
         username: user.username,
@@ -21,7 +21,7 @@ const exerciseController = {
         duration,
         date: exerciseDate
       });
-      console.log(newExercise)
+      // console.log(newExercise)
 
       await newExercise.save();
 
@@ -31,6 +31,7 @@ const exerciseController = {
       await user.save();
 
       res.status(201).json({
+        _id: user._id,
         username: user.username,
         description: newExercise.description,
         duration: newExercise.duration,
