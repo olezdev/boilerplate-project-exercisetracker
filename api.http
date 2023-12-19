@@ -1,0 +1,25 @@
+### Create User
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+  "username": "test"
+}
+
+### Get all Users
+GET http://localhost:3000/api/users
+
+### Add Exercise
+POST http://localhost:3000/api/users/6580e605bf9d81dea5461cfc/exercises
+Content-Type: application/json
+
+{
+  "description": "test2",
+  "duration": 10
+}
+
+### Get user logs
+GET http://localhost:3000/api/users/6580e605bf9d81dea5461cfc/logs?from=2023-12-17&to=2023-12-30&limit=3
+
+### Get user logs
+GET http://localhost:3000/api/users/6580e605bf9d81dea5461cfc/logs?from=2023-12-01&to=2023-12-30&limit=2
