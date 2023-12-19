@@ -3,8 +3,8 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const userRoutes = require('./routes/userRoutes')
 const exerciseRoutes = require('./routes/exerciseRoutes')
-const mongoose = require('mongoose')
 require('dotenv').config()
+require('./database/mongodb')
 
 const app = express()
 app.use(cors())
@@ -12,7 +12,6 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose.connect(process.env.MONGODB_URI)
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
