@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const userRoutes = require('./routes/userRoutes')
+const exerciseRoutes = require('./routes/exerciseRoutes')
 const mongoose = require('mongoose')
 require('dotenv').config()
 
@@ -18,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRoutes)
-
+app.use('/api/users', exerciseRoutes)
 
 const PORT = process.env.PORT ?? 3000
 app.listen(PORT, () => {
